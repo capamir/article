@@ -11,7 +11,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 		('proffesor', 'proffesor'),
 		('manager', 'manager'),
     )
-	role = models.CharField(max_length=200, choices=ROLE_TYPE)
+	role = models.CharField(max_length=200, choices=ROLE_TYPE, blank=True, null=True)
 	email = models.EmailField(max_length=255, unique=True)
 	phone_number = models.CharField(max_length=11, unique=True)
 	full_name = models.CharField(max_length=100)
