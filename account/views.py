@@ -12,6 +12,8 @@ class UserRegistrationView(View):
 	form_class = UserRegistrationForm
 	template_name = 'account/auth/register.html'
 
+	
+
 	def get(self, request):
 		context = {'form': self.form_class}
 		return render(request, self.template_name, context)
