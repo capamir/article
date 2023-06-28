@@ -3,5 +3,5 @@ from django.views.generic import TemplateView
 
 # Create your views here.
 class ArticlesView(TemplateView):
-    template_name = 'articels/articles.html'
+    template_name = 'articles/articles.html'
     

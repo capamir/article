@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # installed apps
     'account.apps.AccountConfig',
-    'aticles.apps.ArticlesConfig'
+    'articles.apps.ArticlesConfig'
 ]
 
 MIDDLEWARE = [
@@ -119,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIR = [ BASE_DIR / 'static' ]
+STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
 # media files
 MEDIA_URL = 'media/'
