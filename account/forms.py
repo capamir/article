@@ -58,6 +58,12 @@ class UserRegistrationForm(BaseUserCreationForm):
 		fields = ('full_name', 'email', 'phone_number', 'password1', 'password2')
 		labels = {'full_name': 'Name', 'phone_number': 'Phone Number',}
 
+	def __init__(self, *args, **kwargs):
+		super(UserRegistrationForm, self).__init__(*args, **kwargs)
+
+		for name, field in self.fields.items():
+			field.widget.attrs.update({'class': 'input'})
+
 	def clean_email(self):
 		email = self.cleaned_data['email']
 		user = User.objects.filter(email=email).exists()
