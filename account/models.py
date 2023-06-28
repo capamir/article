@@ -5,12 +5,12 @@ from .managers import UserManager
 
 
 # Create your models here.
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser):
 	ROLE_TYPE = (
 		('student', 'student'),
 		('proffesor', 'proffesor'),
 		('manager', 'manager'),
-    )
+	)
 	role = models.CharField(max_length=200, choices=ROLE_TYPE, blank=True, null=True)
 	email = models.EmailField(max_length=255, unique=True)
 	phone_number = models.CharField(max_length=11, unique=True)
@@ -32,3 +32,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 	@property
 	def is_staff(self):
 		return self.is_admin
+	
+	def has_perm(self, perm, obj=None):
+		return True
+
+	def has_module_perms(self, app_label):
+		return True
