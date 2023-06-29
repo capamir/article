@@ -135,8 +135,8 @@ AUTH_USER_MODEL = 'account.User'
 # Emailing settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'ugpccontest@gmail.com'
-EMAIL_HOST_USER = 'ugpccontest@gmail.com'
-EMAIL_HOST_PASSWORD = 'ugvwzwnzzsqldrom'
+EMAIL_FROM = 'ta.guilan.ap@gmail.com'
+EMAIL_HOST_USER = 'ta.guilan.ap@gmail.com'
+EMAIL_HOST_PASSWORD = 'cxunvvjyuezsfkii'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

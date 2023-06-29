@@ -12,6 +12,11 @@ from .models import User, OtpCode
 from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm
 from utils import send_otp_code
 
+#email_modules
+from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+
 # Create your views here.
 class UserRegistrationView(View):
 	form_class = UserRegistrationForm
@@ -37,6 +42,23 @@ class UserRegistrationView(View):
 				'full_name': cd['full_name'],
 				'password': cd['password1'],
 			}
+   
+			#send_email
+			to_email= cd['email']
+			mail_subject = 'حساب کاربری رو فعال کن!'
+			message = render_to_string('account/active_email/email_activation.html', {
+				'full_name': f"{cd['full_name']}",
+				'domain': get_current_site(request).domain,
+				'activation_code': random_code,
+				'protocol': 'https' if request.is_secure() else 'http'
+			})
+			email = EmailMessage(mail_subject, message, to=[to_email])
+			email.content_subtype = 'html'
+			if email.send():
+				request.session["register_msg"] = True
+			else:
+				request.session["failed_register_msg"] = True
+   
 			messages.success(request, 'we sent you a code', 'success')
 			return redirect('account:verify_code')
 		return render(request, self.template_name, {'form':form})
