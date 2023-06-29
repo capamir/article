@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
 from django.views import View
+from django.urls import reverse_lazy
 import random
 
 from .models import User, OtpCode
@@ -88,4 +92,27 @@ class UserLoginView(View):
 				return redirect('articles:articles')
 			messages.error(request, 'phone or password is wrong', 'warning')
 		return render(request, self.template_name, {'form':form})
-	
+
+
+class LogoutView(LoginRequiredMixin, LogoutView):
+    next_page = '/'
+
+# ---------------------- reset password ------------------------
+class UserPasswordResetView(auth_views.PasswordResetView):
+	template_name = 'account/password/password_reset_form.html'
+	success_url = reverse_lazy('account:password_reset_done')
+	email_template_name = 'account/password/password_reset_email.html'
+
+
+class UserPasswordResetDoneView(auth_views.PasswordResetDoneView):
+	template_name = 'account/password/password_reset_done.html'
+
+
+class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+	template_name = 'account/password/password_reset_confirm.html'
+	success_url = reverse_lazy('account:password_reset_complete')
+
+
+class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+	template_name = 'account/password/password_reset_complete.html'
+
