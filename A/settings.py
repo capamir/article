@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # installed apps
     'account.apps.AccountConfig',
-    'articles.apps.ArticlesConfig'
+    'articles.apps.ArticlesConfig',
+    # third party apps
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
