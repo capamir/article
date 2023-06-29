@@ -131,3 +131,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'ugpccontest@gmail.com'
+EMAIL_HOST_USER = 'ugpccontest@gmail.com'
+EMAIL_HOST_PASSWORD = 'ugvwzwnzzsqldrom'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
