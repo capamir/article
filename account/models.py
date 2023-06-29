@@ -6,7 +6,7 @@ from .managers import UserManager
 
 
 # Create your models here.
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
 	ROLE_TYPE = (
 		('student', 'student'),
 		('proffesor', 'proffesor'),
@@ -34,12 +34,6 @@ class User(AbstractBaseUser):
 	def is_staff(self):
 		return self.is_admin
 	
-	def has_perm(self, perm, obj=None):
-		return True
-
-	def has_module_perms(self, app_label):
-		return True
-
 	def get_absolute_url(self):
 		return reverse('account:profile_detail', args=[self.id,])
 
