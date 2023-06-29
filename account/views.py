@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 import random
 
@@ -96,7 +96,7 @@ class UserLoginView(View):
 
 
 class UserLogoutView(LoginRequiredMixin, LogoutView):
-    next_page = '/'
+	next_page = '/'
 
 # ---------------------- reset password ------------------------
 class UserPasswordResetView(auth_views.PasswordResetView):
@@ -119,7 +119,12 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 
 class ProfilesView(ListView):
-    template_name = 'account/profile/profiles.html'
-    model = User
-    context_object_name = 'profiles'
-    
+	template_name = 'account/profile/profiles.html'
+	model = User
+	context_object_name = 'profiles'
+
+
+class ProfileDetailView(DetailView):
+	template_name = 'account/profile/profile_detail.html'
+	model = User
+	context_object_name = 'profile'
