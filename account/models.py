@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.urls import reverse
 import uuid
 from .managers import UserManager
 
@@ -38,6 +39,9 @@ class User(AbstractBaseUser):
 
 	def has_module_perms(self, app_label):
 		return True
+
+	def get_absolute_url(self):
+		return reverse('account:profile_detail', args=[self.id,])
 
 
 class OtpCode(models.Model):

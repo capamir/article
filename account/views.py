@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.views import View
+from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 import random
 
@@ -116,8 +117,8 @@ class UserLoginView(View):
 		return render(request, self.template_name, {'form':form})
 
 
-class LogoutView(LoginRequiredMixin, LogoutView):
-    next_page = '/'
+class UserLogoutView(LoginRequiredMixin, LogoutView):
+	next_page = '/'
 
 # ---------------------- reset password ------------------------
 class UserPasswordResetView(auth_views.PasswordResetView):
@@ -138,3 +139,27 @@ class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 	template_name = 'account/password/password_reset_complete.html'
 
+
+class ProfilesView(ListView):
+	template_name = 'account/profile/profiles.html'
+	model = User
+	context_object_name = 'profiles'
+
+
+class ProfileDetailView(DetailView):
+	template_name = 'account/profile/profile_detail.html'
+	model = User
+	context_object_name = 'profile'
+
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.id == kwargs['pk']:
+			return redirect('account:account')
+		return super().dispatch(request, *args, **kwargs)
+	
+
+class UserAccountView(View):
+	template_name = 'account/profile/account.html'
+
+	def get(self, request, *args, **kwargs):
+		context = {'profile': request.user}
+		return render(request, self.template_name, context)
