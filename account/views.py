@@ -94,7 +94,7 @@ class UserLoginView(View):
 		return render(request, self.template_name, {'form':form})
 
 
-class LogoutView(LoginRequiredMixin, LogoutView):
+class UserLogoutView(LoginRequiredMixin, LogoutView):
     next_page = '/'
 
 # ---------------------- reset password ------------------------
