@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.views import View
+from django.views.generic import ListView
 from django.urls import reverse_lazy
 import random
 
@@ -116,3 +117,9 @@ class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 	template_name = 'account/password/password_reset_complete.html'
 
+
+class ProfilesView(ListView):
+    template_name = 'account/profile/profiles.html'
+    model = User
+    context_object_name = 'profiles'
+    
