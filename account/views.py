@@ -42,10 +42,10 @@ class UserRegistrationView(View):
 			#send_email
 			to_email= cd['email']
 			mail_subject = 'حساب کاربری رو فعال کن!'
-			message = render_to_string('account_module/email_activation.html', {
+			message = render_to_string('account/active_email/email_activation.html', {
 				'full_name': f"{cd['full_name']}",
 				'domain': get_current_site(request).domain,
-				'token': random_code,
+				'activation_code': random_code,
 				'protocol': 'https' if request.is_secure() else 'http'
 			})
 			email = EmailMessage(mail_subject, message, to=[to_email])
