@@ -128,3 +128,16 @@ class ProfileDetailView(DetailView):
 	template_name = 'account/profile/profile_detail.html'
 	model = User
 	context_object_name = 'profile'
+
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.id == kwargs['pk']:
+			return redirect('account:account')
+		return super().dispatch(request, *args, **kwargs)
+	
+
+class UserAccountView(View):
+	template_name = 'account/profile/account.html'
+
+	def get(self, request, *args, **kwargs):
+		context = {'profile': request.user}
+		return render(request, self.template_name, context)

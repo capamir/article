@@ -12,6 +12,7 @@ password = [
 app_name = 'account'
 urlpatterns = [
     path('', views.ProfilesView.as_view(), name='profiles'),
+    path('profile', views.UserAccountView.as_view(), name='account'),
 
     path('register/', views.UserRegistrationView.as_view(), name='register'),
     path('verify/', views.UserRegisterVerifyCodeView.as_view(), name='verify_code'),
