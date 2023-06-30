@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 kavenegar = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 
