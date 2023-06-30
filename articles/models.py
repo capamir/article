@@ -1,10 +1,11 @@
 from django.db import models
-from account.models import User
+from account.models import User, Professor
 import uuid
 
 # Create your models here.
 class Article(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    judges = models.ManyToManyField(Professor, related_name='articles')
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=500)
     file = models.FileField(upload_to='articles')
@@ -16,7 +17,7 @@ class Article(models.Model):
         return self.title
 
 class Review(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Professor, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

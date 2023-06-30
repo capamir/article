@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from .models import User, OtpCode
+from .models import User, OtpCode, Professor
 from .forms import UserCreationForm, UserChangeForm
 
 # Register your models here.
@@ -9,6 +9,9 @@ from .forms import UserCreationForm, UserChangeForm
 class OtpCodeAdmin(admin.ModelAdmin):
 	list_display = ('phone_number', 'code', 'created')
 
+@admin.register(Professor)
+class ProfessorAdmin(admin.ModelAdmin):
+	raw_id_fields = ('user',)
 
 class UserAdmin(BaseUserAdmin):
 	form = UserChangeForm

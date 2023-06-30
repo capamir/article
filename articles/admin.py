@@ -4,8 +4,8 @@ from .models import Article, Review
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["user", "title", "created"]
-    raw_id_fields = ('user',)
+    list_display = ["owner", "title", "created"]
+    raw_id_fields = ('owner', 'judges')
     search_fields = ('title',)
     ordering = ('created',)
     readonly_fields = ('title', 'description')
