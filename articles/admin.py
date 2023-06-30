@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Article, Review
 
 # Register your models here.
 
@@ -16,5 +16,5 @@ class ReviewAdmin(admin.ModelAdmin):
     ordering = ('created',)
 
 
-admin.site.register(ArticleModel, ArticleAdmin)
-admin.site.register(ReviewModel, ReviewAdmin)
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(Review, ReviewAdmin)

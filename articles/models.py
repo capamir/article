@@ -3,7 +3,7 @@ from account.models import User
 import uuid
 
 # Create your models here.
-class ArticleModel(models.Model):
+class Article(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=500)
@@ -15,9 +15,9 @@ class ArticleModel(models.Model):
     def __str__(self):
         return self.title
 
-class ReviewModel(models.Model):
+class Review(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    article = models.ForeignKey(ArticleModel, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     
