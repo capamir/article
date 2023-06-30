@@ -4,7 +4,7 @@ from .models import *
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["user", "title"]
+    list_display = ["user", "title", "created"]
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ["owner", "article","created"]
