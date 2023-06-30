@@ -42,7 +42,7 @@ class Professor(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	
 	def __str__(self):
-		return self.user
+		return self.user.email
 
 class OtpCode(models.Model):
 	phone_number = models.CharField(max_length=11, unique=True)
