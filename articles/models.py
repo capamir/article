@@ -1,6 +1,7 @@
 from django.db import models
 from account.models import User, Professor
 import uuid
+from django.db import transaction
 
 # Create your models here.
 class Article(models.Model):
@@ -35,7 +36,7 @@ class Notification_Manager(models.Model):
     def __str__(self):
         return self.article.title
     
-    
+# ===== signals ===== 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
@@ -49,10 +50,12 @@ def article_post_save_handler(sender, instance:Article, created, *args, **kwargs
         new_notife.save()
     else:
         # create review rows for judge
-        pass
-        # get_judge_list = instance.judges.all()
-        # get_user = instance.owner
-        # li = []
-        
-        # for judge in get_judge_list:
-        #     pass
+        if instance.judges.all() is not None:
+            get_judge_list = instance.judges.all()
+            with transaction.atomic():
+                for judge in get_judge_list:
+                    judge:Professor = judge 
+                    r = Review.objects.create(owner=judge, article=instance)
+                    r.save()
+        else:
+            pass
