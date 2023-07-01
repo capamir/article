@@ -26,3 +26,11 @@ class Review(models.Model):
     
     def __str__(self):
         return f"{self.owner} - {self.article.title}"
+    
+class Notification_Manager(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+     
+    def __str__(self):
+        return f"NewArticle - {self.article.title}"
