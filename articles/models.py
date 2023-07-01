@@ -5,7 +5,7 @@ import uuid
 # Create your models here.
 class Article(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
-    judges = models.ManyToManyField(Professor, related_name='articles')
+    judges = models.ManyToManyField(Professor, related_name='articles', null=True, default=None)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=500)
     file = models.FileField(upload_to='articles')
