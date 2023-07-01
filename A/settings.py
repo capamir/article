@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'articles.apps.ArticlesConfig',
     # third party apps
     'django_celery_beat',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,15 @@ EMAIL_HOST_USER = 'ta.guilan.ap@gmail.com'
 EMAIL_HOST_PASSWORD = 'cxunvvjyuezsfkii'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+
+# ARVAN CLOUD STORAGE
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = '69733d8a-7e9c-4abd-818f-3ba648482344'
+AWS_SECRET_ACCESS_KEY = 'b867f62ca5a8b0768e178d57735582e35ff89b5df7a29db3e4ff3c8701171e54'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
+AWS_STORAGE_BUCKET_NAME = 'django-article'
+AWS_SERVICE_NAME = 's3'
+AWS_S3_FILE_OVERWRITE = False
+# AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
