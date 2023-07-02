@@ -11,6 +11,7 @@ class Article(models.Model):
     description = models.TextField(max_length=500)
     file = models.FileField(upload_to='articles')
     created = models.DateTimeField(auto_now_add=True)
+    is_view = models.BooleanField(default=False)
 
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)     
     

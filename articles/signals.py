@@ -21,8 +21,7 @@ def article_post_save_handler(sender, instance:Article, created, *args, **kwargs
 @receiver(m2m_changed, sender=Article.judges.through)
 def articel_update_when_judge_added(sender, instance:Article, action, *args, **kwargs):
     if action == "post_add":
-        # print("post",instance.judges.all())
-        # create review rows for judge
+        # create review rows for judge if m2m changed
         get_judge_list = instance.judges.all()
         if get_judge_list:
             with transaction.atomic():
