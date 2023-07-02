@@ -9,6 +9,8 @@ kavenegar = "*"
 django-celery-beat = "*"
 django-storages = "*"
 boto3 = "*"
+redis = "*"
+hiredis = "*"
 
 [dev-packages]
 
