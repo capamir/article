@@ -5,10 +5,17 @@ from django.utils.html import format_html
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["owner", "article_name", "created", "is_view"]
+    list_display = ["article_owner", "article_name", "created", "is_view"]
     raw_id_fields = ('owner', 'judges')
     search_fields = ('title',)
     ordering = ('created','is_view')
+    readonly_fields = ('is_view',)
+    
+    @admin.display
+    def article_owner(self, obj:Article):
+        user_change_url = f'/admin/account/user/{obj.owner.id}/change/'
+        
+        return format_html("<a href='{url}'>{name}</a>",url=f'{user_change_url}', name=obj.owner.full_name)    
     
     @admin.display
     def article_name(self, obj:Article):

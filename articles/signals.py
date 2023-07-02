@@ -30,3 +30,10 @@ def articel_update_when_judge_added(sender, instance:Article, action, *args, **k
                     get,c = Review.objects.get_or_create(owner=judge, article=instance)
                     if(c):
                         get.save()
+                        
+@receiver(post_save, sender=Review)
+def review_post_save_handler(sender, instance:Review, created, *args, **kwargs):
+    if created:
+        find_article = instance.article
+        find_article.is_view = True
+        find_article.save()
