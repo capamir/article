@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Review, Notification_Manager
+from .models import Article, Review
 
 # Register your models here.
 
@@ -14,13 +14,6 @@ class ReviewAdmin(admin.ModelAdmin):
     raw_id_fields = ('owner', 'article')
     ordering = ('created',)
 
-class Notification_Manager_Admin(admin.ModelAdmin):
-    list_display = ["article", "created"]
-    raw_id_fields = ('article',)
-    ordering = ('created',)
-        
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Review, ReviewAdmin)
-
-admin.site.register(Notification_Manager, Notification_Manager_Admin)

@@ -4,7 +4,7 @@ from django.db.models.signals import post_save,pre_save,m2m_changed
 from django.db import transaction
 from account.models import User, Professor
 
-from .models import Article,Review,Notification_Manager
+from .models import Article,Review
 
 @receiver(pre_save, sender=Article)
 def article_pre_save_handler(sender, instance:Article, *args, **kwargs):
@@ -14,9 +14,7 @@ def article_pre_save_handler(sender, instance:Article, *args, **kwargs):
 @receiver(post_save, sender=Article)
 def article_post_save_handler(sender, instance:Article, created, *args, **kwargs):
     if created:
-        # create notification that new article added
-        new_notife = Notification_Manager.objects.create(article=instance)
-        new_notife.save()
+        pass
     else:
         pass
         
