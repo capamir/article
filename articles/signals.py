@@ -43,4 +43,6 @@ def review_post_delete_handeler(sender, instance:Review, *args, **kwargs):
     find_article = instance.article
     find_judge = instance.owner
     find_article.judges.remove(find_judge)
+    if(find_article.judges.exists() == False):
+        find_article.is_view = False
     find_article.save()
