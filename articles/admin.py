@@ -5,7 +5,7 @@ from django.utils.html import format_html
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["article_owner", "article_name", "created", "is_view"]
+    list_display = ["article_name" ,"article_owner", "created", "is_view"]
     raw_id_fields = ('owner', 'judges')
     search_fields = ('title',)
     ordering = ('created','is_view')
