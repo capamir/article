@@ -167,7 +167,7 @@ class UserAccountView(View):
 		return render(request, self.template_name, context)
 	
 class UpdateUserProfileView(LoginRequiredMixin, View):
-    template_name = 'accounts/profile/profile_form.html'
+    template_name = 'account/profile/profile_form.html'
     form_class = ProfileForm
 
     def setup(self, request, *args, **kwargs):
@@ -177,21 +177,21 @@ class UpdateUserProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form = self.form_class(instance=self.profile)
         context = {'form': form}
-        return render(request, self.template, context=context)
+        return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('accounts:account')
-        context = {'form': form}
-        return render(request, self.template, context=context)
+            return redirect('account:account')
+        context = {'form': form, 'user': request.user}
+        return render(request, self.template_name, context=context)
 
 # ---------------------- End Profile ------------------------
 
 # ----------------------  Message ------------------------
 class InboxView(LoginRequiredMixin, View):
-    template_name = 'accounts/message/inbox.html'
+    template_name = 'account/message/inbox.html'
 
     def get(self, request, *args, **kwargs):
         profile = request.user.profile
@@ -205,7 +205,7 @@ class InboxView(LoginRequiredMixin, View):
 
 
 class MessageView(LoginRequiredMixin, View):
-    template_name = 'accounts/message/message.html'
+    template_name = 'account/message/message.html'
 
     def get(self, request, *args, **kwargs):
         profile = request.user.profile
@@ -219,7 +219,7 @@ class MessageView(LoginRequiredMixin, View):
 
 
 class CreateMessageView(View):
-    template_name = 'accounts/message/message_form.html'
+    template_name = 'account/message/message_form.html'
     form_class = MessageForm
 
     def setup(self, request, *args, **kwargs):
@@ -249,7 +249,7 @@ class CreateMessageView(View):
                 message.email = self.sender.email
             message.save()
             messages.success(request, 'Your message was successfully sent!')
-            return redirect('accounts:profile-detail', pk=self.recipient.id)
+            return redirect('account:profile-detail', pk=self.recipient.id)
 
         context = {
             'form': form,

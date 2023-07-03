@@ -96,11 +96,9 @@ class ProfileForm(forms.ModelForm):
 				  'social_github', 'social_linkedin', 'social_twitter',
 				  'social_website')
 	
-	def __init__(self, *args, **kwargs):
-		super(UserRegistrationForm, self).__init__(*args, **kwargs)
-
-		for name, field in self.fields.items():
-			field.widget.attrs.update({'class': 'input'})
+	# def __init__(self, *args, **kwargs):
+	# 	for name, field in self.fields.items():
+	# 		field.widget.attrs.update({'class': 'input'})
 
 
 class MessageForm(forms.ModelForm):
