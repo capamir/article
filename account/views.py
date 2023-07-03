@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.views import View
@@ -142,17 +142,26 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 
 # ---------------------- Profile ------------------------
-class ProfilesView(LoginRequiredMixin, ListView):
+
+class UserAccessMixMin(PermissionRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('/')
+	
+
+class ProfilesView(UserAccessMixMin, LoginRequiredMixin, ListView):
 	template_name = 'account/profile/profiles.html'
 	model = User
 	context_object_name = 'profiles'
+	permission_required = 'profile.view_profile'
+ 
 
-
-class ProfileDetailView(LoginRequiredMixin, DetailView):
+class ProfileDetailView(UserAccessMixMin, LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
 	model = User
 	context_object_name = 'profile'
-
+	permission_required = 'profile.view_profile'
+ 
 	def dispatch(self, request, *args, **kwargs):
 		if request.user.id == kwargs['pk']:
 			return redirect('account:account')
@@ -227,7 +236,7 @@ class MessageView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-class CreateMessageView(View):
+class CreateMessageView(LoginRequiredMixin, View):
     template_name = 'account/message/message_form.html'
     form_class = MessageForm
 
