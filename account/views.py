@@ -143,24 +143,21 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 # ---------------------- Profile ------------------------
 
-class UserAccessMixMin(PermissionRequiredMixin):
-    def dispatch(self, request, *args, **kwargs):
-        if not self.has_permission():
-            return redirect('/')
-	
+            	
 
-class ProfilesView(UserAccessMixMin, LoginRequiredMixin, ListView):
+class ProfilesView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
 	template_name = 'account/profile/profiles.html'
 	model = User
 	context_object_name = 'profiles'
 	permission_required = 'profile.view_profile'
  
 
-class ProfileDetailView(UserAccessMixMin, LoginRequiredMixin, DetailView):
+class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
 	model = User
 	context_object_name = 'profile'
 	permission_required = 'profile.view_profile'
+ 
  
 	def dispatch(self, request, *args, **kwargs):
 		if request.user.id == kwargs['pk']:
