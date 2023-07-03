@@ -182,7 +182,17 @@ class UpdateUserProfileView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            cd = form.cleaned_data
+            find_user_profile_obj = Profile.objects.get(user=request.user.id)
+            find_user_profile_obj.location = cd["location"]
+            find_user_profile_obj.bio = cd["bio"]
+            find_user_profile_obj.short_intro = cd["short_intro"]
+            find_user_profile_obj.social_github = cd["social_github"]
+            find_user_profile_obj.social_linkedin = cd["social_linkedin"]
+            find_user_profile_obj.social_twitter = cd["social_twitter"]
+            find_user_profile_obj.social_website = cd["social_website"]
+            find_user_profile_obj.save()
+            # form.save()
             return redirect('account:account')
         context = {'form': form, 'user': request.user}
         return render(request, self.template_name, context=context)
