@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 import random
 
 from .models import User, OtpCode, Profile
@@ -142,13 +142,13 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 
 # ---------------------- Profile ------------------------
-class ProfilesView(ListView):
+class ProfilesView(LoginRequiredMixin, ListView):
 	template_name = 'account/profile/profiles.html'
 	model = User
 	context_object_name = 'profiles'
 
 
-class ProfileDetailView(DetailView):
+class ProfileDetailView(LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
 	model = User
 	context_object_name = 'profile'
@@ -159,9 +159,8 @@ class ProfileDetailView(DetailView):
 		return super().dispatch(request, *args, **kwargs)
 	
 
-class UserAccountView(View):
+class UserAccountView(LoginRequiredMixin, View):
 	template_name = 'account/profile/account.html'
-
 	def get(self, request, *args, **kwargs):
 		context = {'profile': request.user}
 		return render(request, self.template_name, context)
