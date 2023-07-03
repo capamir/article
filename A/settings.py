@@ -94,7 +94,7 @@ DATABASES = {
 #     }
 # }
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -135,7 +135,7 @@ STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
 # media files
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'static/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -163,4 +163,4 @@ AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
 AWS_STORAGE_BUCKET_NAME = 'django-article'
 AWS_SERVICE_NAME = 's3'
 AWS_S3_FILE_OVERWRITE = False
-# AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
+AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'

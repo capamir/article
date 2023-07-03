@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
-from .models import User, OtpCode
+from .models import User, OtpCode, Profile, Message
 
 
 class UserCreationForm(forms.ModelForm):
@@ -87,4 +87,23 @@ class VerifyCodeForm(forms.Form):
 class UserLoginForm(forms.Form):
 	phone = forms.CharField(widget=forms.TextInput(attrs={"class": "input"}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "input"}))
+
+
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('location', 'bio', 'short_intro', 'image',
+				  'social_github', 'social_linkedin', 'social_twitter',
+				  'social_website')
 	
+	def __init__(self, *args, **kwargs):
+		super(UserRegistrationForm, self).__init__(*args, **kwargs)
+
+		for name, field in self.fields.items():
+			field.widget.attrs.update({'class': 'input'})
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['name', 'email', 'subject', 'body']

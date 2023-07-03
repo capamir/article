@@ -11,6 +11,7 @@ django-storages = "*"
 boto3 = "*"
 redis = "*"
 hiredis = "*"
+pillow = "*"
 
 [dev-packages]
 

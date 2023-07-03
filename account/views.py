@@ -9,8 +9,8 @@ from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 import random
 
-from .models import User, OtpCode
-from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm
+from .models import User, OtpCode, Profile
+from .forms import UserRegistrationForm, VerifyCodeForm, UserLoginForm, ProfileForm, MessageForm
 from utils import send_otp_code
 
 #email_modules
@@ -138,8 +138,10 @@ class UserPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 
 class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 	template_name = 'account/password/password_reset_complete.html'
+# ---------------------- End reset password ------------------------
 
 
+# ---------------------- Profile ------------------------
 class ProfilesView(ListView):
 	template_name = 'account/profile/profiles.html'
 	model = User
@@ -163,3 +165,96 @@ class UserAccountView(View):
 	def get(self, request, *args, **kwargs):
 		context = {'profile': request.user}
 		return render(request, self.template_name, context)
+	
+class UpdateUserProfileView(LoginRequiredMixin, View):
+    template_name = 'accounts/profile/profile_form.html'
+    form_class = ProfileForm
+
+    def setup(self, request, *args, **kwargs):
+        self.profile = request.user.profile
+        return super().setup(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(instance=self.profile)
+        context = {'form': form}
+        return render(request, self.template, context=context)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:account')
+        context = {'form': form}
+        return render(request, self.template, context=context)
+
+# ---------------------- End Profile ------------------------
+
+# ----------------------  Message ------------------------
+class InboxView(LoginRequiredMixin, View):
+    template_name = 'accounts/message/inbox.html'
+
+    def get(self, request, *args, **kwargs):
+        profile = request.user.profile
+        message_requests = profile.messages.all()
+        unread_count = message_requests.filter(is_read=False).count()
+        context = {
+            'message_requests': message_requests,
+            'unread_count': unread_count
+        }
+        return render(request, self.template_name, context)
+
+
+class MessageView(LoginRequiredMixin, View):
+    template_name = 'accounts/message/message.html'
+
+    def get(self, request, *args, **kwargs):
+        profile = request.user.profile
+        message = profile.messages.get(id=kwargs['pk'])
+        if message.is_read == False:
+            message.is_read = True
+            message.save()
+
+        context = {'message': message}
+        return render(request, self.template_name, context)
+
+
+class CreateMessageView(View):
+    template_name = 'accounts/message/message_form.html'
+    form_class = MessageForm
+
+    def setup(self, request, *args, **kwargs):
+        try:
+            self.sender = request.user.profile
+        except:
+            self.sender = None
+        self.recipient = Profile.objects.get(id=kwargs['pk'])
+        return super().setup(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+            'form': self.form_class,
+            'recipient': self.recipient
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = self.sender
+            message.recipient = self.recipient
+            if self.sender:
+                message.name = self.sender.name
+                message.email = self.sender.email
+            message.save()
+            messages.success(request, 'Your message was successfully sent!')
+            return redirect('accounts:profile-detail', pk=self.recipient.id)
+
+        context = {
+            'form': form,
+            'recipient': self.recipient
+        }
+        return render(request, self.template_name, context)
+
+# ----------------------  End Message ------------------------
