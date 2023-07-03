@@ -1,7 +1,7 @@
 from django.db import models
 from account.models import User, Professor
 import uuid
-
+from django.core.validators import FileExtensionValidator
 
 # Create your models here.
 class Article(models.Model):
@@ -9,7 +9,7 @@ class Article(models.Model):
     judges = models.ManyToManyField(Professor, related_name='articles',default=None,blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=500)
-    file = models.FileField(upload_to='articles')
+    file = models.FileField(upload_to='articles', validators=[FileExtensionValidator(['pdf'])])
     created = models.DateTimeField(auto_now_add=True)
     is_view = models.BooleanField(default=False)
 
