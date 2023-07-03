@@ -52,7 +52,7 @@
             </ul>
             {% if request.user.profile.id != profile.id %}
             <a
-              href="{% url 'accounts:send-message' profile.id %}"
+              href="{% url 'account:send-message' profile.id %}"
               class="btn btn--sub btn--lg"
               >Send Message
             </a>
@@ -105,7 +105,7 @@
                     <p>
                       <a
                         class="project__author"
-                        href="{% url 'accounts:profile-detail' project.owner.id %}"
+                        href="{% url 'account:profile-detail' project.owner.id %}"
                         >By {{project.owner.name}}</a
                       >
                     </p>
