@@ -6,6 +6,7 @@ from django.utils.html import format_html
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ["article_name" ,"article_owner", "created", "is_view"]
+    list_filter = ['is_view',]
     raw_id_fields = ('owner', 'judges')
     search_fields = ('title',)
     ordering = ('created','is_view')
