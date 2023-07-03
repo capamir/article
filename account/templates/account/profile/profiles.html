@@ -13,7 +13,7 @@
         <form
           id="searchForm"
           class="form"
-          action="{% url 'accounts:profiles' %}"
+          action="{% url 'account:profiles' %}"
           method="get"
         >
           <div class="form__field">
@@ -41,7 +41,7 @@
         <div class="column card">
           <div class="dev">
             <a
-              href="{% url 'accounts:profile-detail' profile.id %}"
+              href="{% url 'account:profile_update' profile.id %}"
               class="card__body"
             >
               <div class="dev__profile">
