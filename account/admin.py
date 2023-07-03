@@ -8,9 +8,6 @@ from .forms import UserCreationForm, UserChangeForm
 class OtpCodeAdmin(admin.ModelAdmin):
 	list_display = ('phone_number', 'code', 'created')
 
-@admin.register(Professor)
-class ProfessorAdmin(admin.ModelAdmin):
-	raw_id_fields = ('user',)
 
 class UserAdmin(BaseUserAdmin):
 	form = UserChangeForm
@@ -50,7 +47,7 @@ class ProfileAdmin(admin.ModelAdmin):
 class EditorAdmin(admin.ModelAdmin):
 	raw_id_fields = ('user',)
 
-class ProfesserAdmin(admin.ModelAdmin):
+class ProfessorAdmin(admin.ModelAdmin):
 	raw_id_fields = ('user',)
 	
 class StudentAdmin(admin.ModelAdmin):
