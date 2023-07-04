@@ -12,6 +12,7 @@ boto3 = "*"
 redis = "*"
 hiredis = "*"
 pillow = "*"
+django-render-partial = "*"
 
 [dev-packages]
 

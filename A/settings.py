@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # third party apps
     'django_celery_beat',
     'storages',
+    'django_render_partial',
 ]
 
 MIDDLEWARE = [
