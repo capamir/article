@@ -4,7 +4,7 @@
 <main class="formPage my-xl">
   <div class="content-box">
     <div class="formWrapper">
-      <a class="backButton" href="{% url 'accounts:account' %}"
+      <a class="backButton" href="{% url 'account:account' %}"
         ><i class="im im-angle-left"></i
       ></a>
       <br />
@@ -12,7 +12,7 @@
       <form
         class="form"
         method="POST"
-        action="{% url 'accounts:edit-account' %}"
+        action="{% url 'account:profile_update' pk=user.id %}"
         enctype="multipart/form-data"
       >
         {% csrf_token %} {% for field in form %}
