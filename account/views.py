@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 import random
 
 from .models import User, OtpCode, Profile
@@ -142,32 +142,37 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 
 # ---------------------- Profile ------------------------
-class ProfilesView(ListView):
+
+            	
+
+class ProfilesView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
 	template_name = 'account/profile/profiles.html'
-	model = User
+	model = Profile
 	context_object_name = 'profiles'
+	permission_required = 'profile.view_profile'
+ 
 
-
-class ProfileDetailView(DetailView):
+class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
-	model = User
+	model = Profile
 	context_object_name = 'profile'
-
+	permission_required = 'profile.view_profile'
+ 
+ 
 	def dispatch(self, request, *args, **kwargs):
 		if request.user.id == kwargs['pk']:
 			return redirect('account:account')
 		return super().dispatch(request, *args, **kwargs)
 	
 
-class UserAccountView(View):
+class UserAccountView(LoginRequiredMixin, View):
 	template_name = 'account/profile/account.html'
-
 	def get(self, request, *args, **kwargs):
-		context = {'profile': request.user}
+		context = {'profile': request.user.profile}
 		return render(request, self.template_name, context)
 	
 class UpdateUserProfileView(LoginRequiredMixin, View):
-    template_name = 'accounts/profile/profile_form.html'
+    template_name = 'account/profile/profile_form.html'
     form_class = ProfileForm
 
     def setup(self, request, *args, **kwargs):
@@ -177,21 +182,31 @@ class UpdateUserProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form = self.form_class(instance=self.profile)
         context = {'form': form}
-        return render(request, self.template, context=context)
+        return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('accounts:account')
-        context = {'form': form}
-        return render(request, self.template, context=context)
+            cd = form.cleaned_data
+            find_user_profile_obj = Profile.objects.get(user=request.user.id)
+            find_user_profile_obj.location = cd["location"]
+            find_user_profile_obj.bio = cd["bio"]
+            find_user_profile_obj.short_intro = cd["short_intro"]
+            find_user_profile_obj.social_github = cd["social_github"]
+            find_user_profile_obj.social_linkedin = cd["social_linkedin"]
+            find_user_profile_obj.social_twitter = cd["social_twitter"]
+            find_user_profile_obj.social_website = cd["social_website"]
+            find_user_profile_obj.save()
+            # form.save()
+            return redirect('account:account')
+        context = {'form': form, 'user': request.user.profile}
+        return render(request, self.template_name, context=context)
 
 # ---------------------- End Profile ------------------------
 
 # ----------------------  Message ------------------------
 class InboxView(LoginRequiredMixin, View):
-    template_name = 'accounts/message/inbox.html'
+    template_name = 'account/message/inbox.html'
 
     def get(self, request, *args, **kwargs):
         profile = request.user.profile
@@ -205,7 +220,7 @@ class InboxView(LoginRequiredMixin, View):
 
 
 class MessageView(LoginRequiredMixin, View):
-    template_name = 'accounts/message/message.html'
+    template_name = 'account/message/message.html'
 
     def get(self, request, *args, **kwargs):
         profile = request.user.profile
@@ -218,8 +233,8 @@ class MessageView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-class CreateMessageView(View):
-    template_name = 'accounts/message/message_form.html'
+class CreateMessageView(LoginRequiredMixin, View):
+    template_name = 'account/message/message_form.html'
     form_class = MessageForm
 
     def setup(self, request, *args, **kwargs):
@@ -249,7 +264,7 @@ class CreateMessageView(View):
                 message.email = self.sender.email
             message.save()
             messages.success(request, 'Your message was successfully sent!')
-            return redirect('accounts:profile-detail', pk=self.recipient.id)
+            return redirect('account:profile-detail', pk=self.recipient.id)
 
         context = {
             'form': form,

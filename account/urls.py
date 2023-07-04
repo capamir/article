@@ -1,6 +1,8 @@
 from django.urls import path, include
 from . import views
 
+app_name = 'account'
+
 auth = [
     path('register/', views.UserRegistrationView.as_view(), name='register'),
     path('verify/', views.UserRegisterVerifyCodeView.as_view(), name='verify_code'),
@@ -22,16 +24,15 @@ message = [
          name='send-message'),
 ]
 
-app_name = 'account'
 urlpatterns = [
-    path('', views.ProfilesView.as_view(), name='profiles'),
-    path('profile', views.UserAccountView.as_view(), name='account'),
-    path('<str:pk>/', views.ProfileDetailView.as_view(), name='profile_detail'),
-    path('<str:pk>/update/', views.UpdateUserProfileView.as_view(), name='profile_update'),
-    
     path('auth/', include(auth)),
     path('password/', include(password)),
     path('message/', include(message)),
+    
+    path('', views.ProfilesView.as_view(), name='profiles'),
+    path('profile', views.UserAccountView.as_view(), name='account'),
+    path('<str:pk>/update/', views.UpdateUserProfileView.as_view(), name='profile_update'),
+    path('<str:pk>/', views.ProfileDetailView.as_view(), name='profile_detail'),
 
 ]
 
