@@ -2,7 +2,7 @@ from django.shortcuts import render
 from  django.views import View
 # Create your views here.
 from django.views.generic import TemplateView,ListView
-from articles.models import Article
+from articles.models import Article,Review
 
 class StudentView(TemplateView):
     template_name = 'userPanel_module/student_view/studentView.html'

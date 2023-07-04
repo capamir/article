@@ -1,3 +1,4 @@
+{% load judge_review %}
 <div class="row row-cols-1 row-cols-md-2 g-4">
     {% for article in articles %}
           <div class="col">
@@ -9,7 +10,12 @@
                 <div class="card-footer">
                 <small class="text-muted">Last updated : {{ article.last_view }}</small>
                     <br>
-                    <a class="btn btn-danger btn-md mt-3">Edit Article</a>
+                <small class="text-muted">judge Comments : {{ article.review_set | filter_review_body }}</small>
+                    <br>
+                        <div class="">
+                            <a class="btn btn-danger btn-md mt-3">Edit Article</a>
+                            <a class="btn btn-primary btn-md mt-3">Show Article</a>
+                        </div>
                     </div>
             </div>
           </div>
