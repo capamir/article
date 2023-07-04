@@ -7,17 +7,6 @@ from datetime import datetime
 
 from .models import Article,Review
 
-@receiver(pre_save, sender=Article)
-def article_pre_save_handler(sender, instance:Article, *args, **kwargs):
-    # print("pre",instance.judges.all())
-    pass
-    
-@receiver(post_save, sender=Article)
-def article_post_save_handler(sender, instance:Article, created, *args, **kwargs):
-    if created:
-        pass
-    else:
-        pass
         
 @receiver(m2m_changed, sender=Article.judges.through)
 def articel_update_when_judge_added(sender, instance:Article, action, *args, **kwargs):
@@ -32,7 +21,7 @@ def articel_update_when_judge_added(sender, instance:Article, action, *args, **k
                     if(c):
                         get.save()
                         
-@receiver(post_save, sender=Review)
+
 def review_post_save_handler(sender, instance:Review, created, *args, **kwargs):
     if created:
         find_article = instance.article
@@ -40,15 +29,7 @@ def review_post_save_handler(sender, instance:Review, created, *args, **kwargs):
         find_article.last_view = datetime.now()
         find_article.save()
             
-@receiver(pre_save, sender=Review)
-def review_post_save_handler(sender, instance:Review, *args, **kwargs):
-    review_body = instance.body
-    if(review_body):
-        instance.updated = datetime.now()
-    else:
-        instance.updated = None
         
-@receiver(post_delete, sender=Review)
 def review_post_delete_handeler(sender, instance:Review, *args, **kwargs):
     find_article = instance.article
     find_judge = instance.owner
@@ -56,3 +37,7 @@ def review_post_delete_handeler(sender, instance:Review, *args, **kwargs):
     if(find_article.judges.exists() == False):
         find_article.is_view = False
     find_article.save()
+
+
+post_save.connect(review_post_save_handler, sender=Review)
+post_delete.connect(review_post_delete_handeler, sender=Review)
