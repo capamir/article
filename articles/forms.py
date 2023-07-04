@@ -15,6 +15,7 @@ class ArticleForm(forms.Form):
                 "id": "article_title",
             }
         ),
+    )
     description = forms.CharField(
         label="Title",
         max_length=500,
@@ -24,6 +25,7 @@ class ArticleForm(forms.Form):
                 "id": "article_description",
             }
         ),
+    )
     file = forms.FileField(
         label="Title",
         max_length=100,
@@ -33,5 +35,4 @@ class ArticleForm(forms.Form):
                 "id": "article_file",
             }
         ),
-
     )
