@@ -147,14 +147,14 @@ class UserPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 class ProfilesView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
 	template_name = 'account/profile/profiles.html'
-	model = User
+	model = Profile
 	context_object_name = 'profiles'
 	permission_required = 'profile.view_profile'
  
 
 class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
-	model = User
+	model = Profile
 	context_object_name = 'profile'
 	permission_required = 'profile.view_profile'
  
