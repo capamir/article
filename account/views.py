@@ -168,7 +168,7 @@ class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView)
 class UserAccountView(LoginRequiredMixin, View):
 	template_name = 'account/profile/account.html'
 	def get(self, request, *args, **kwargs):
-		context = {'profile': request.user}
+		context = {'profile': request.user.profile}
 		return render(request, self.template_name, context)
 	
 class UpdateUserProfileView(LoginRequiredMixin, View):
@@ -199,7 +199,7 @@ class UpdateUserProfileView(LoginRequiredMixin, View):
             find_user_profile_obj.save()
             # form.save()
             return redirect('account:account')
-        context = {'form': form, 'user': request.user}
+        context = {'form': form, 'user': request.user.profile}
         return render(request, self.template_name, context=context)
 
 # ---------------------- End Profile ------------------------

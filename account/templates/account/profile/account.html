@@ -19,6 +19,9 @@
             <h2 class="dev__name">{{profile.name}}</h2>
             <p class="dev__title">{{profile.short_into}}</p>
             <p class="dev__location">Based in {{profile.location}}</p>
+            <p class="dev__title">{{profile.user.email}}</p>
+            <p class="dev__title">{{profile.user.phone_number}}</p>
+
 
             <ul class="dev__social">
               {% if profile.social_github %}
