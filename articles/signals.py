@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_save,m2m_changed,post_delete
 from django.db import transaction
 from account.models import User, Professor
+from datetime import datetime
 
 from .models import Article,Review
 
@@ -36,6 +37,7 @@ def review_post_save_handler(sender, instance:Review, created, *args, **kwargs):
     if created:
         find_article = instance.article
         find_article.is_view = True
+        find_article.last_view = datetime.now()
         find_article.save()
         
 @receiver(post_delete, sender=Review)
