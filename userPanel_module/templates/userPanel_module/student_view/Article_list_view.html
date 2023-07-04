@@ -8,7 +8,7 @@
                 <p class="card-text text-start">{{ article.description }}</p>
               </div>
                 <div class="card-footer">
-                <small class="text-muted">Last updated : {{ article.last_view }}</small>
+                <small class="text-muted">Last updated : {{ article.updated }}</small>
                     <br>
                 <small class="text-muted">judge Comments : {{ article.review_set | filter_review_body }}</small>
                     <br>
