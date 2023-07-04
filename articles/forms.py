@@ -1,5 +1,5 @@
 from django import forms
-from  .models import Article,Review
+from django.core.validators import FileExtensionValidator
 
 class ArticleForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -17,7 +17,7 @@ class ArticleForm(forms.Form):
         ),
     )
     description = forms.CharField(
-        label="Title",
+        label="description",
         max_length=500,
         widget=forms.Textarea(
             attrs={
@@ -27,12 +27,14 @@ class ArticleForm(forms.Form):
         ),
     )
     file = forms.FileField(
-        label="Title",
-        max_length=100,
+        label="file",
         widget=forms.FileInput(
             attrs={
                 "class": "form-control",
                 "id": "article_file",
             }
         ),
+        validators= [
+            FileExtensionValidator(["pdf"], message="File Type is not correct !"),
+        ]
     )

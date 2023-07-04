@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
     <main>
-        hello
+        <div class="container">
+            <div class="row my-4">
+                <div class="offset-md-3 col-md-6">
+                    <div class="card">
+                        <div class="card-title text-center fw-bold my-2">
+                            add new Article
+                        </div>
+                        <div class="card-body">
+                            <form
+                                method="post"
+                                action="{% url 'userPanel_module:add_new_article' %}"
+                            >
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label>{{ article_form.title.label }}</label>
+                                    {{ article_form.title }}
+                                </div>
+                                <div class="mb-3">
+                                    <label>{{ article_form.description.label }}</label>
+                                    {{ article_form.description }}
+                                </div>
+                                <div class="mb-3">
+                                    <label>{{ article_form.file.label }}</label>
+                                    {{ article_form.file }}
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success btn-md w-25">
+                                    send
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 {% endblock %}
