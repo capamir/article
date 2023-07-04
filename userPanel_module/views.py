@@ -26,3 +26,9 @@ class StudentArticlesView(ListView):
         articles = Article.objects.filter(owner=user)
         context['articles'] = articles
         return context
+
+class AddNewArticle(View):
+    def get(self, request):
+        return render(request, "userPanel_module/student_view/add_new_article.html", {})
+    def post(self, request):
+        pass
