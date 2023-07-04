@@ -25,9 +25,10 @@ class ArticleAdmin(admin.ModelAdmin):
         return format_html("<a href='{url}'>{name}</a>",url=f'{article_change_url}', name=obj.title)    
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ["judge_by", "article_name","article_owner","created"]
+    list_display = ["judge_by", "article_name","article_owner","created",'updated']
     raw_id_fields = ('owner', 'article')
     ordering = ('created',)
+    readonly_fields = ('created','updated',)
 
     @admin.display
     def article_owner(self, obj:Review):

@@ -25,7 +25,7 @@ class Review(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_created=False, default=False, null=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False) 
     
     def __str__(self):
