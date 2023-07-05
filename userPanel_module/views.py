@@ -79,7 +79,7 @@ class ProfessorArticles_for_review_View(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProfessorArticles_for_review_View, self).get_context_data()
         professor = self.request.user.professor_set.first()
-        reviews = Review.objects.filter(owner=professor)
+        reviews = Review.objects.filter(owner=professor, body__exact='')
         context['reviews'] = reviews
         return context
 
