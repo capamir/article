@@ -112,7 +112,7 @@ class UserLoginView(View):
 			if user is not None:
 				login(request, user)
 				messages.success(request, 'you logged in successfully', 'info')
-				return redirect('articles:articles')
+				return redirect('account:account')
 			messages.error(request, 'phone or password is wrong', 'warning')
 		return render(request, self.template_name, {'form':form})
 
