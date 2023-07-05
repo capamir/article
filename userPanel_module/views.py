@@ -107,3 +107,13 @@ class AddNewReview_View(View):
             'review': find_review_obj
         }
         return render(request, 'userPanel_module/professor_view/add_new_review.html', context)
+
+class ProfessorLast_reviews_View(ListView):
+    model = Review
+    template_name = 'userPanel_module/professor_view/last_reviews.html'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProfessorLast_reviews_View, self).get_context_data()
+        professor = self.request.user.professor_set.first()
+        reviews = Review.objects.filter(owner=professor).exclude(body__exact='')
+        context['reviews'] = reviews
+        return context
