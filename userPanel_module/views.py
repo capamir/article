@@ -69,6 +69,40 @@ class showArticle(View):
         }
         return render(request, "userPanel_module/student_view/show_article.html", context)
 
+class EditArticle(View):
+    def get(self, request, article_id):
+        find_article = Article.objects.get(id=article_id)
+        initial_dict = {
+            "title": find_article.title,
+            'description': find_article.description,
+            'file': find_article.file,
+        }
+        article_form = ArticleForm(initial=initial_dict)
+        context = {
+            'article_form': article_form,
+            'article_id': article_id
+        }
+        return render(request, "userPanel_module/student_view/edit_article.html", context)
+    def post(self, request, article_id):
+        find_article = Article.objects.get(id=article_id)
+        article_form = ArticleForm(request.POST, request.FILES)
+        if(article_form.is_valid()):
+            cd = article_form.cleaned_data
+            get_user = request.user
+            title = cd["title"]
+            description = cd["description"]
+            file = request.FILES["file"]
+            find_article.title = title
+            find_article.description = description
+            find_article.file = file
+            find_article.save()
+            return redirect(reverse("account:account"))
+        context = {
+            'article_form': article_form,
+            'article_id': article_id
+        }
+        return render(request, "userPanel_module/student_view/edit_article.html", context)
+
 
 # === PROFESSOR VIEW ===
 class ProfessorView(TemplateView):
