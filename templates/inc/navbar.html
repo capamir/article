@@ -1,32 +1,32 @@
 {% load static %}
 
 <!-- Header Section -->
-<header class="header">
-    <div class="container container--narrow">
-        <a href="" class="header__logo">
-            <img src="{% static 'images/logo.svg' %} " alt="DevSearch Logo" />
-        </a>
-
-        <nav class="header__nav">
-            <input type="checkbox" id="responsive-menu" />
-            <label for="responsive-menu" class="toggle-menu">
-                <span>Menu</span>
-                <div class="toggle-menu__lines"></div>
-            </label>
-            <ul class="header__menu">
-                <li class="header__menuItem"><a href="">Developers</a></li>
-                <li class="header__menuItem"><a href="">Projects</a></li>
-
-
-
-                {% if request.user.is_authenticated %}
-                <li class="header__menuItem"><a href="">Inbox</a></li>
-                <li class="header__menuItem"><a href="">Account</a></li>
-                <li class="header__menuItem"><a href="" class="btn btn--sub">Logout</a></li>
-                {% else %}
-                <li class="header__menuItem"><a href="" class="btn btn--sub">Login/Sign Up</a></li>
-                {% endif %}
-            </ul>
+<header class="header p-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid p-3">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                  {% if request.user.is_authenticated %}
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'account:logout' %}">Logout</a>
+                    </li>
+                      {% else %}
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'account:login' %}">Login</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="{% url 'account:register' %}">Register</a>
+                      </li>
+                  {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> Home </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
-    </div>
 </header>
