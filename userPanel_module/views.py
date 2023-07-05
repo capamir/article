@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from  django.views import View
 # Create your views here.
-from django.views.generic import TemplateView,ListView
-from articles.models import Article,Review
-from articles.forms import ArticleForm
-from django.shortcuts import redirect,reverse
+from django.views.generic import TemplateView, ListView
+from articles.models import Article, Review
+from articles.forms import ArticleForm, ReviewForm
+from django.shortcuts import redirect, reverse
 
 # === STUDENT VIEW ===
 
@@ -84,3 +84,15 @@ class ProfessorArticles_for_review_View(ListView):
         reviews = Review.objects.filter(owner=professor)
         context['reviews'] = reviews
         return context
+
+class AddNewReview(View):
+    def get(self, request, review_id):
+        review_form = ReviewForm()
+        find_review = Review.objects.get(id=review_id)
+        context = {
+            'review_form': review_form,
+            'review' : find_review
+        }
+        return render(request, 'userPanel_module/professor_view/add_new_review.html', context)
+    def post(self, request):
+        pass
