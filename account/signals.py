@@ -11,10 +11,11 @@ def create_profile(sender, instance:User, created, **kwargs):
         )
         profile.save()
 
-def create_student_post_save_handeler(sender, instance:User, created, **kwargs):
+def create_student_post_save_handeler(sender, instance:User, created ,*args ,**kwargs):
     if created:
         student = Student.objects.create(user=instance)
         student.save()
 
 
 post_save.connect(create_profile, sender=User)
+post_save.connect(create_student_post_save_handeler, sender=User)
