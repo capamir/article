@@ -38,3 +38,19 @@ class ArticleForm(forms.Form):
             FileExtensionValidator(["pdf"], message="File Type is not correct !"),
         ]
     )
+
+class ReviewForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(ReviewForm, self).__init__(*args, **kwargs)
+
+    body = forms.CharField(
+        label="body",
+        max_length=500,
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "id": "review_body",
+            }
+        ),
+    )
