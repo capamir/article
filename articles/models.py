@@ -24,7 +24,7 @@ class Article(models.Model):
 class Review(models.Model):
     owner = models.ForeignKey(Professor, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    body = models.TextField(null=True, blank=True)
+    body = models.TextField(null=True, blank=True, default='')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False) 

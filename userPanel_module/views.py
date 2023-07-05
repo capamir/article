@@ -114,6 +114,8 @@ class ProfessorView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
+# todo : convert listView to View for better perfomance
+# todo: check articles query
 class ProfessorArticles_for_review_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/Articles_for_review.html'
