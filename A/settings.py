@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     # installed apps
     'account.apps.AccountConfig',
     'articles.apps.ArticlesConfig',
+    'userPanel_module',
     # third party apps
     'django_celery_beat',
     'storages',
+    'django_render_partial',
 ]
 
 MIDDLEWARE = [

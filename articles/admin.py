@@ -5,12 +5,12 @@ from django.utils.html import format_html
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ["article_name" ,"article_owner", "created", "is_view", "last_view"]
+    list_display = ["article_name" ,"article_owner", "created","updated" ,"is_view", "admin_last_view"]
     list_filter = ['is_view',]
     raw_id_fields = ('owner', 'judges',)
-    search_fields = ('title','last_view','created',)
-    ordering = ('created','is_view', 'last_view',)
-    readonly_fields = ('is_view','last_view',)
+    search_fields = ('title','admin_last_view','created','updated',)
+    ordering = ('created','updated','is_view', 'admin_last_view',)
+    readonly_fields = ('is_view','admin_last_view','updated')
     
     @admin.display
     def article_owner(self, obj:Article):

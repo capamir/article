@@ -111,8 +111,7 @@ class UserLoginView(View):
 			user = authenticate(request, phone_number=cd['phone'], password=cd['password'])
 			if user is not None:
 				login(request, user)
-				messages.success(request, 'you logged in successfully', 'info')
-				return redirect('articles:articles')
+				return redirect('account:account')
 			messages.error(request, 'phone or password is wrong', 'warning')
 		return render(request, self.template_name, {'form':form})
 
@@ -152,11 +151,10 @@ class ProfilesView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
 	permission_required = 'profile.view_profile'
  
 
-class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
+class ProfileDetailView(LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
 	model = Profile
 	context_object_name = 'profile'
-	permission_required = 'profile.view_profile'
  
  
 	def dispatch(self, request, *args, **kwargs):
@@ -168,7 +166,7 @@ class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView)
 class UserAccountView(LoginRequiredMixin, View):
 	template_name = 'account/profile/account.html'
 	def get(self, request, *args, **kwargs):
-		context = {'profile': request.user.profile}
+		context = {'profile': request.user.profile, 'student': request.user.student_set.all(), 'professor': request.user.professor_set.all()}
 		return render(request, self.template_name, context)
 	
 class UpdateUserProfileView(LoginRequiredMixin, View):

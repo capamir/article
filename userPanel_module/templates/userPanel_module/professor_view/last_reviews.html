@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+        <div class="container">
+            {% if reviews %}
+                <div class="card text-center">
+                    <div class="card-title fs-5 fw-bold">
+                        Last Reviews
+                    </div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-md-1 g-4">
+                            {% for review in reviews %}
+                              <div class="col-md-6">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Article Title : {{ review.article.title }}</h5>
+                                    <h5 class="card-title">Article Owner : {{ review.article.owner.full_name }}</h5>
+                                    <p class="card-text text-start"><span class="fw-bold">
+                                        Article Description
+                                    </span>: {{ review.article.description  }}</p>
+                                  </div>
+                                    <div class="card-footer">
+                                    <small class="text-muted">Article Created Date : {{ review.article.created  }}</small>
+                                        <br>
+                                    <small class="text-muted">Last Review Update : {{ review.updated  }}</small>
+                                        <br>
+                    {#                <small class="text-muted">judge Comments : {{ article.review_set }}</small>#}
+                                        <br>
+                                            <div class="">
+                                                <a href="{% url 'userPanel_module:edit_review' review_id=review.id %}" class="btn btn-danger btn-md mt-3">Edit Your Review</a>
+                                                {#           Profossor should have permision to access profile_view                 #}
+                                                <a href="{% url 'account:profile_detail' pk=review.article.owner.profile.id %}" class="btn btn-primary btn-md mt-3">Show student Deatils</a>
+                                            </div>
+                                        </div>
+                                </div>
+                              </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p>
+                                                <span class="fw-bold">
+                                                    Your Review :
+                                                </span>
+                                                {{ review.body }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            {% else %}
+                <div class="offset-md-3 col-md-6 my-5">
+                        <div class="text-center fs-3 fw-bold alert alert-info">
+                            there is not any reviews yet
+                        </div>
+                    </div>
+            {% endif %}
+
+        </div>
+    </main>
+{% endblock %}

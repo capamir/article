@@ -33,6 +33,6 @@ urlpatterns = [
     path('profile', views.UserAccountView.as_view(), name='account'),
     path('<str:pk>/update/', views.UpdateUserProfileView.as_view(), name='profile_update'),
     path('<str:pk>/', views.ProfileDetailView.as_view(), name='profile_detail'),
-
+    
 ]
 
