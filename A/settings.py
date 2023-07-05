@@ -173,8 +173,8 @@ AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
 # RichText
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'full',
+        'toolbar': 'basic',
         'height': 300,
-        'width': 300,
+        'width': 1200,
     },
 }
