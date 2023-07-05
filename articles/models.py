@@ -20,6 +20,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+# todo : add score field to review model
 class Review(models.Model):
     owner = models.ForeignKey(Professor, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
