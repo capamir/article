@@ -111,7 +111,6 @@ class UserLoginView(View):
 			user = authenticate(request, phone_number=cd['phone'], password=cd['password'])
 			if user is not None:
 				login(request, user)
-				messages.success(request, 'you logged in successfully', 'info')
 				return redirect('account:account')
 			messages.error(request, 'phone or password is wrong', 'warning')
 		return render(request, self.template_name, {'form':form})
@@ -168,7 +167,7 @@ class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView)
 class UserAccountView(LoginRequiredMixin, View):
 	template_name = 'account/profile/account.html'
 	def get(self, request, *args, **kwargs):
-		context = {'profile': request.user.profile}
+		context = {'profile': request.user.profile, 'student': request.user.student_set.all(), 'professor': request.user.professor_set.all()}
 		return render(request, self.template_name, context)
 	
 class UpdateUserProfileView(LoginRequiredMixin, View):

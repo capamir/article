@@ -69,7 +69,13 @@
 {#  </div>#}
 <div class="container">
     {# --- student View ---  #}
-    {% render_partial 'userPanel_module.views.StudentView' %}
+    {% if student %}
+            {% render_partial 'userPanel_module.views.StudentView' %}
+    {% endif %}
+    {% if professor %}
+
+    {% endif %}
+
 </div>
 
 </main>
