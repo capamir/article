@@ -16,6 +16,7 @@ class StudentView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
+# todo: convert ListView to View for better perfomance
 class StudentArticlesView(ListView):
     model = Article
     template_name = 'userPanel_module/student_view/Article_list_view.html'
@@ -59,6 +60,7 @@ class AddNewArticle(View):
         }
         return render(request, "userPanel_module/student_view/add_new_article.html", context)
 
+# todo: show uploded file in this view
 class showArticle(View):
     def get(self, request, article_id):
         find_article = Article.objects.get(id=article_id)
@@ -112,6 +114,8 @@ class ProfessorView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
+# todo : convert listView to View for better perfomance
+# todo: check articles query
 class ProfessorArticles_for_review_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/Articles_for_review.html'
@@ -127,6 +131,7 @@ class ProfessorArticles_for_review_View(ListView):
         context['reviews'] = reviews
         return context
 
+# todo: show student article files
 class AddNewReview_View(View):
     def get(self, request, review_id):
         review_form = ReviewForm()

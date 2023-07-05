@@ -10,7 +10,9 @@ from .models import Article,Review
 
 def article_pre_save_handeler(sender, instance:Article, *args, **kwargs):
     instance.admin_last_view = datetime.now()
-        
+
+# todo: signal for update article to send notification message
+
 @receiver(m2m_changed, sender=Article.judges.through)
 def articel_update_when_judge_added(sender, instance:Article, action, *args, **kwargs):
     if action == "post_add":
