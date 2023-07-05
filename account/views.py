@@ -151,11 +151,10 @@ class ProfilesView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
 	permission_required = 'profile.view_profile'
  
 
-class ProfileDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
+class ProfileDetailView(LoginRequiredMixin, DetailView):
 	template_name = 'account/profile/profile_detail.html'
 	model = Profile
 	context_object_name = 'profile'
-	permission_required = 'profile.view_profile'
  
  
 	def dispatch(self, request, *args, **kwargs):
