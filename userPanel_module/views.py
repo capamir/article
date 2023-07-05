@@ -6,6 +6,8 @@ from articles.models import Article,Review
 from articles.forms import ArticleForm
 from django.shortcuts import redirect,reverse
 
+# === STUDENT VIEW ===
+
 class StudentView(TemplateView):
     template_name = 'userPanel_module/student_view/studentView.html'
 
@@ -58,3 +60,12 @@ class AddNewArticle(View):
             'article_form' : article_form,
         }
         return render(request, "userPanel_module/student_view/add_new_article.html", context)
+
+
+# === PROFESSOR VIEW ===
+class ProfessorView(TemplateView):
+    template_name = 'userPanel_module/professor_view/professor_view.html'
+    def get_context_data(self, **kwargs):
+        context = super(ProfessorView, self).get_context_data()
+        context['profile'] = self.request.user.profile
+        return context

@@ -1,0 +1,41 @@
+{% load render_partial %}
+<div class="row">
+    <div class="col-md-4 mt-3">
+        <div class="card text-center" style="width: 100%;">
+      <img src="{{ profile.image }}" class="card-img-top" alt="image">
+      <div class="card-body">
+        <h5 class="card-title">{{ profile.name }}</h5>
+        <p class="card-text">{{ profile.short_desc }}</p>
+        <p class="card-text">Base in {{ profile.location }}</p>
+        <p class="card-text">Email : {{ profile.user.email }}</p>
+        <p class="card-text">Phone : {{ profile.user.phone_number }}</p>
+      </div>
+        <div class="card-footer">
+            <a href="{% url 'account:profile_update' pk=profile.id %}" class="btn btn-primary btn-md">Edit Profile</a>
+            <a href="{% url 'account:profile_detail' pk=profile.id %}" class="btn btn-warning btn-md">Show Details</a>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-7 offset-md-1 mt-3">
+        <div class="card border-info mb-3 text-center" style="max-width: 100%; height: 100%">
+          <div class="card-header">Review Section</div>
+          <div class="card-body">
+              <div class="btn-group-vertical">
+                    <a href="{% url 'userpanel:add_new_article' %}" class="btn btn-info btn-lg">My Last Reviews</a>
+              </div>
+          </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12 my-5">
+        <div class="card border-info mb-3 text-center" style="max-width: 100%; height: 100%">
+          <div class="card-header">Articles for Review</div>
+          <div class="card-body">
+
+            {#          show  reviews        #}
+
+          </div>
+        </div>
+    </div>
+</div>
