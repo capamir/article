@@ -69,3 +69,18 @@ class ProfessorView(TemplateView):
         context = super(ProfessorView, self).get_context_data()
         context['profile'] = self.request.user.profile
         return context
+
+class ProfessorArticles_for_review_View(ListView):
+    model = Review
+    template_name = 'userPanel_module/professor_view/Articles_for_review.html'
+
+    def get_queryset(self):
+        query = super(ProfessorArticles_for_review_View, self).get_queryset()
+        return query
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProfessorArticles_for_review_View, self).get_context_data()
+        professor = self.request.user.professor_set.first()
+        reviews = Review.objects.filter(owner=professor)
+        context['reviews'] = reviews
+        return context
