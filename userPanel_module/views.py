@@ -85,7 +85,7 @@ class ProfessorArticles_for_review_View(ListView):
         context['reviews'] = reviews
         return context
 
-class AddNewReview(View):
+class AddNewReview_View(View):
     def get(self, request, review_id):
         review_form = ReviewForm()
         find_review = Review.objects.get(id=review_id)
