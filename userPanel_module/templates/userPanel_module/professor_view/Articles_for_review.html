@@ -13,8 +13,8 @@
 {#                <small class="text-muted">judge Comments : {{ article.review_set }}</small>#}
                     <br>
                         <div class="">
-                            <a class="btn btn-danger btn-md mt-3">Edit Article</a>
-                            <a class="btn btn-primary btn-md mt-3">Show student Deatils</a>
+                            <a class="btn btn-danger btn-md mt-3">Review This Article</a>
+                            <a href="{% url 'account:profile_detail' pk=review.article.owner.profile.id %}" class="btn btn-primary btn-md mt-3">Show student Deatils</a>
                         </div>
                     </div>
             </div>
