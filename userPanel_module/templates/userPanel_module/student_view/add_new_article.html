@@ -12,6 +12,7 @@
                             <form
                                 method="post"
                                 action="{% url 'userPanel_module:add_new_article' %}"
+                                enctype="multipart/form-data"
                             >
                                 {% csrf_token %}
                                 <div class="mb-3">

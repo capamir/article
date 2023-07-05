@@ -37,13 +37,15 @@ class AddNewArticle(View):
         }
         return render(request, "userPanel_module/student_view/add_new_article.html", context)
     def post(self, request):
-        article_form = ArticleForm(request.POST)
+        article_form = ArticleForm(request.POST, request.FILES)
+        print(request.POST)
+        print(request.FILES)
         if(article_form.is_valid()):
             cd = article_form.cleaned_data
             get_user = request.user
             title = cd["title"]
             description = cd["description"]
-            file = cd["file"]
+            file = request.FILES["file"]
             new_article = Article.objects.create(
                 title=title,
                 description=description,
