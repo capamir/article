@@ -88,10 +88,10 @@ class ProfessorArticles_for_review_View(ListView):
 class AddNewReview_View(View):
     def get(self, request, review_id):
         review_form = ReviewForm()
-        find_review = Review.objects.get(id=review_id)
+        find_review_obj = Review.objects.get(id=review_id)
         context = {
             'review_form': review_form,
-            'review' : find_review
+            'review': find_review_obj
         }
         return render(request, 'userPanel_module/professor_view/add_new_review.html', context)
     def post(self, request):
