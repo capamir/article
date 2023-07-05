@@ -108,6 +108,34 @@ class AddNewReview_View(View):
         }
         return render(request, 'userPanel_module/professor_view/add_new_review.html', context)
 
+class EditReview_View(View):
+    def get(self, request, review_id):
+        find_review_obj = Review.objects.get(id=review_id)
+        initial_dict = {
+            "body": find_review_obj.body,
+        }
+        review_form = ReviewForm(initial=initial_dict)
+        context = {
+            'review_form': review_form,
+            'review': find_review_obj
+        }
+        return render(request, 'userPanel_module/professor_view/edit_review.html', context)
+    def post(self, request, review_id):
+        review_form = ReviewForm(request.POST)
+        find_review_obj = Review.objects.get(id=review_id)
+        if(review_form.is_valid()):
+            cd = review_form.cleaned_data
+            body = cd['body']
+            find_review_obj.body = body
+            find_review_obj.save()
+            return redirect(reverse("account:account"))
+        context = {
+            'review_form': review_form,
+            'review': find_review_obj
+        }
+        return render(request, 'userPanel_module/professor_view/add_new_review.html', context)
+
+
 class ProfessorLast_reviews_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/last_reviews.html'

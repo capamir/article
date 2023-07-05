@@ -25,7 +25,7 @@
                     {#                <small class="text-muted">judge Comments : {{ article.review_set }}</small>#}
                                         <br>
                                             <div class="">
-                                                <a href="{% url 'userpanel:add_new_review' review_id=review.id %}" class="btn btn-danger btn-md mt-3">Edit Your Review</a>
+                                                <a href="{% url 'userPanel_module:edit_review' review_id=review.id %}" class="btn btn-danger btn-md mt-3">Edit Your Review</a>
                                                 {#           Profossor should have permision to access profile_view                 #}
                                                 <a href="{% url 'account:profile_detail' pk=review.article.owner.profile.id %}" class="btn btn-primary btn-md mt-3">Show student Deatils</a>
                                             </div>
