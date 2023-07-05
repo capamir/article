@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import FileExtensionValidator
+from ckeditor.widgets import CKEditorWidget
 
 class ArticleForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -19,12 +20,18 @@ class ArticleForm(forms.Form):
     description = forms.CharField(
         label="description",
         max_length=500,
-        widget=forms.Textarea(
+        # widget=forms.Textarea(
+        #     attrs={
+        #         "class": "form-control",
+        #         "id": "article_description",
+        #     }
+        # ),
+        widget=CKEditorWidget(
             attrs={
                 "class": "form-control",
                 "id": "article_description",
             }
-        ),
+        )
     )
     file = forms.FileField(
         label="file",

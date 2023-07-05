@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     # installed apps
     'account.apps.AccountConfig',
     'articles.apps.ArticlesConfig',
-    'userPanel_module',
+    'userPanel_module.apps.UserpanelModuleConfig',
     # third party apps
     'django_celery_beat',
     'storages',
     'django_render_partial',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -168,3 +169,12 @@ AWS_STORAGE_BUCKET_NAME = 'django-article'
 AWS_SERVICE_NAME = 's3'
 AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
+
+# RichText
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 300,
+    },
+}

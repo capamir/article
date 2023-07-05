@@ -13,6 +13,7 @@ redis = "*"
 hiredis = "*"
 pillow = "*"
 django-render-partial = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 

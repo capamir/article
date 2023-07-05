@@ -2,6 +2,7 @@ from django.db import models
 from account.models import User, Professor
 import uuid
 from django.core.validators import FileExtensionValidator
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Article(models.Model):
@@ -24,7 +25,7 @@ class Article(models.Model):
 class Review(models.Model):
     owner = models.ForeignKey(Professor, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    body = models.TextField(null=True, blank=True, default='')
+    body = models.TextField(default='',)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False) 
