@@ -8,14 +8,16 @@
                         Last Reviews
                     </div>
                     <div class="card-body">
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="row row-cols-1 row-cols-md-1 g-4">
                             {% for review in reviews %}
-                              <div class="col">
+                              <div class="col-md-6">
                                 <div class="card">
                                   <div class="card-body">
                                     <h5 class="card-title">Article Title : {{ review.article.title }}</h5>
                                     <h5 class="card-title">Article Owner : {{ review.article.owner.full_name }}</h5>
-                                    <p class="card-text text-start">Article Description : {{ review.article.description  }}</p>
+                                    <p class="card-text text-start"><span class="fw-bold">
+                                        Article Description
+                                    </span>: {{ review.article.description  }}</p>
                                   </div>
                                     <div class="card-footer">
                                     <small class="text-muted">Article Created Date : {{ review.article.created  }}</small>
@@ -32,6 +34,18 @@
                                         </div>
                                 </div>
                               </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p>
+                                                <span class="fw-bold">
+                                                    Your Review :
+                                                </span>
+                                                {{ review.body }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                 {% endfor %}
                         </div>
                     </div>
