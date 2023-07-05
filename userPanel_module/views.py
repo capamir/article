@@ -59,6 +59,16 @@ class AddNewArticle(View):
         }
         return render(request, "userPanel_module/student_view/add_new_article.html", context)
 
+class showArticle(View):
+    def get(self, request, article_id):
+        find_article = Article.objects.get(id=article_id)
+        find_reviews = find_article.review_set.all()
+        context = {
+            'article': find_article,
+            'reviews': find_reviews
+        }
+        return render(request, "userPanel_module/student_view/show_article.html", context)
+
 
 # === PROFESSOR VIEW ===
 class ProfessorView(TemplateView):
