@@ -29,6 +29,7 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2 g-4 my-2">
                     {% for review in reviews %}
+                        {% if review.body %}
                           <div class="col">
                             <div class="card">
                               <div class="card-body">
@@ -40,6 +41,7 @@
                                 </div>
                             </div>
                       </div>
+                        {% endif %}
                 {% endfor %}
 </div>
         </div>
