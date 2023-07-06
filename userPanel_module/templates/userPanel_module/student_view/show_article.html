@@ -13,6 +13,10 @@
                                 <span class="fs-5 fw-bold">Desciption : </span>
                                 {{ article.description }}
                             </p>
+                            <p>
+                                <span class="fs-5 fw-bold">Uploded Article : </span>
+                                <a href="{{ article.file.url }}">{{ article.file.name }}</a>
+                            </p>
                         </div>
                         <div class="card-footer">
                             <small>last update : {{ article.updated }}</small>
@@ -20,7 +24,10 @@
                     </div>
                 </div>
             </div>
-                <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="row my-2">
+                <h2 class="text-center">Comments : </h2>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 g-4 my-2">
                     {% for review in reviews %}
                           <div class="col">
                             <div class="card">
