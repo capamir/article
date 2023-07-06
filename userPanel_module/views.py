@@ -60,7 +60,7 @@ class AddNewArticle(View):
         }
         return render(request, "userPanel_module/student_view/add_new_article.html", context)
 
-# todo: show uploded file in this view
+
 class showArticle(View):
     def get(self, request, article_id):
         find_article = Article.objects.get(id=article_id)
@@ -115,7 +115,6 @@ class ProfessorView(TemplateView):
         return context
 
 # todo : convert listView to View for better perfomance
-# todo: check articles query
 class ProfessorArticles_for_review_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/Articles_for_review.html'
