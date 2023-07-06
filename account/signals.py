@@ -22,7 +22,7 @@ def remove_student(sender, instance: Professor, created, **kwargs):
     # removes student role when a user becomes Professor
     if created:
         try:
-            student = instance.user.student
+            student = instance.user.student_set.first()
             student.delete()
         except:
             pass
