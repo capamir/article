@@ -6,5 +6,9 @@
       "database": "${workspaceFolder:article}/db.sqlite3",
       "name": "Articlle"
     }
-  ]
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }
