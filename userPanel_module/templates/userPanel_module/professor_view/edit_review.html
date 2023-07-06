@@ -20,8 +20,7 @@
                             >
                                 {% csrf_token %}
                                 <div class="mb-3">
-                                    <label>{{ review_form.body.label }}</label>
-                                    {{ review_form.body }}
+                                    {{ review_form.body|safe }}
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success btn-md w-25">

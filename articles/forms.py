@@ -87,7 +87,13 @@ class ReviewForm(forms.Form):
     body = forms.CharField(
         label="body",
         max_length=500,
-        widget=forms.Textarea(
+        # widget=forms.Textarea(
+        #     attrs={
+        #         "class": "form-control",
+        #         "id": "review_body",
+        #     }
+        # ),
+        widget=CKEditorWidget(
             attrs={
                 "class": "form-control",
                 "id": "review_body",
