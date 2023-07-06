@@ -12,7 +12,7 @@ class Article(models.Model):
     judges = models.ManyToManyField(
         Professor, related_name='articles', default=None, blank=True)
     title = models.CharField(max_length=200)
-    description = models.TextField(max_length=500)
+    description = RichTextField()
     file = models.FileField(upload_to='articles', validators=[
                             FileExtensionValidator(['pdf'])])
     is_view = models.BooleanField(default=False)

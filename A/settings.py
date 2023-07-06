@@ -174,6 +174,11 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'basic',
         'height': 300,
-        'width': 1200,
+        'width': 1000,
     },
+    'article_description': {
+        'toolbar': 'basic',
+        'height': 300,
+        'width': 900,
+    }
 }

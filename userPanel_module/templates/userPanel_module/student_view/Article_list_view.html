@@ -5,7 +5,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Title : {{ article.title }}</h5>
-                <p class="card-text text-start">Description : {{ article.description }}</p>
+                <p class="card-text text-start">Description : {{ article.description|safe }}</p>
               </div>
                 <div class="card-footer">
                 <small class="text-muted">Last updated : {{ article.updated }}</small>

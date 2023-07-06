@@ -20,11 +20,12 @@ class ArticleForm(forms.Form):
     description = forms.CharField(
         label="description",
         max_length=500,
-        widget=forms.Textarea(
+        widget=CKEditorWidget(
             attrs={
                 "class": "form-control",
                 "id": "article_description",
-            }
+            },
+            config_name='article_description',
         ),
     )
     file = forms.FileField(
@@ -58,11 +59,12 @@ class EditArticleForm(forms.Form):
     description = forms.CharField(
         label="description",
         max_length=500,
-        widget=forms.Textarea(
+        widget=CKEditorWidget(
             attrs={
                 "class": "form-control",
                 "id": "article_description",
-            }
+            },
+            config_name='article_description',
         ),
     )
     file = forms.FileField(
