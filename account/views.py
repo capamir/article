@@ -194,8 +194,7 @@ class UpdateUserProfileView(LoginRequiredMixin, View):
             find_user_profile_obj.social_linkedin = cd["social_linkedin"]
             find_user_profile_obj.social_twitter = cd["social_twitter"]
             find_user_profile_obj.social_website = cd["social_website"]
-            changed_profile = cd["image"]
-            if(changed_profile):
+            if(request.FILES):
                 image_file = request.FILES["image"]
                 find_user_profile_obj.image = image_file
             find_user_profile_obj.save()

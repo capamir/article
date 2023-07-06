@@ -91,9 +91,8 @@ class EditArticle(View):
             cd = edit_article_form.cleaned_data
             title = cd["title"]
             description = cd["description"]
-            check_file = cd["file"]
             # if file input is changed, then update object file field
-            if(check_file):
+            if(request.FILES):
                 file = request.FILES["file"]
                 find_article.file = file
             find_article.title = title
