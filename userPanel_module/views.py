@@ -16,14 +16,12 @@ class StudentView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
-# todo: convert ListView to View for better perfomance
 class StudentArticlesView(ListView):
     model = Article
     template_name = 'userPanel_module/student_view/Article_list_view.html'
 
     def get_queryset(self):
-        query = super(StudentArticlesView, self).get_queryset()
-        return query
+        return None
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(StudentArticlesView, self).get_context_data()
@@ -114,14 +112,12 @@ class ProfessorView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
-# todo : convert listView to View for better perfomance
 class ProfessorArticles_for_review_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/Articles_for_review.html'
 
     def get_queryset(self):
-        query = super(ProfessorArticles_for_review_View, self).get_queryset()
-        return query
+        return None
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProfessorArticles_for_review_View, self).get_context_data()
@@ -130,7 +126,7 @@ class ProfessorArticles_for_review_View(ListView):
         context['reviews'] = reviews
         return context
 
-# todo: show student article files
+
 class AddNewReview_View(View):
     def get(self, request, review_id):
         review_form = ReviewForm()
@@ -187,6 +183,10 @@ class EditReview_View(View):
 class ProfessorLast_reviews_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/last_reviews.html'
+
+    def get_queryset(self):
+        return None
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProfessorLast_reviews_View, self).get_context_data()
         professor = self.request.user.professor_set.first()
