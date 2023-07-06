@@ -188,6 +188,7 @@ class UpdateUserProfileView(LoginRequiredMixin, View):
             cd = form.cleaned_data
             find_user_profile_obj = Profile.objects.get(user=request.user.id)
             find_user_profile_obj.location = cd["location"]
+            find_user_profile_obj.university = cd["university"]
             find_user_profile_obj.bio = cd["bio"]
             find_user_profile_obj.short_intro = cd["short_intro"]
             find_user_profile_obj.social_github = cd["social_github"]

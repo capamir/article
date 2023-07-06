@@ -92,7 +92,7 @@ class UserLoginForm(forms.Form):
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('location', 'bio', 'short_intro', 'image',
+		fields = ('location','university' ,'bio', 'short_intro', 'image',
 				  'social_github', 'social_linkedin', 'social_twitter',
 				  'social_website')
 	
@@ -100,7 +100,7 @@ class ProfileForm(forms.ModelForm):
 		super(ProfileForm, self).__init__(*args, **kwargs)
 
 		for name, field in self.fields.items():
-			field.widget.attrs.update({'class': 'input form-control'})
+			field.widget.attrs.update({'class': 'input form-control my-2'})
 
 
 class MessageForm(forms.ModelForm):
