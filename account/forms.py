@@ -85,8 +85,8 @@ class VerifyCodeForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-	phone = forms.CharField(widget=forms.TextInput(attrs={"class": "input"}))
-	password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "input"}))
+	phone = forms.CharField(widget=forms.TextInput(attrs={"class": "input form-control"}))
+	password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "input form-control"}))
 
 
 class ProfileForm(forms.ModelForm):
