@@ -16,16 +16,18 @@
                             >
                                 {% csrf_token %}
                                 <div class="mb-3">
-                                    <label>{{ article_form.title.label }}</label>
-                                    {{ article_form.title }}
+                                    <label>{{ edit_article_form.title.label }}</label>
+                                    {{ edit_article_form.title }}
                                 </div>
                                 <div class="mb-3">
-                                    <label>{{ article_form.description.label }}</label>
-                                    {{ article_form.description }}
+                                    <label>{{ edit_article_form.description.label }}</label>
+                                    {{ edit_article_form.description }}
                                 </div>
                                 <div class="mb-3">
-                                    <label>{{ article_form.file.label }}</label>
-                                    {{ article_form.file }}
+                                        {# --- remove input reqiured attribute if user have uploded file --- #}
+                                    <label>{{ edit_article_form.file.label }}</label>
+                                    {{ edit_article_form.file }}
+                                    <p>curently uploaded file : <a href="{{ article.file.url }}">{{ article.file.name }}</a> </p>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success btn-md w-25">

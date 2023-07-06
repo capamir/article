@@ -3,7 +3,7 @@ from  django.views import View
 # Create your views here.
 from django.views.generic import TemplateView, ListView
 from articles.models import Article, Review
-from articles.forms import ArticleForm, ReviewForm
+from articles.forms import ArticleForm, ReviewForm, EditArticleForm
 from django.shortcuts import redirect, reverse
 
 # === STUDENT VIEW ===
@@ -16,14 +16,12 @@ class StudentView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
-# todo: convert ListView to View for better perfomance
 class StudentArticlesView(ListView):
     model = Article
     template_name = 'userPanel_module/student_view/Article_list_view.html'
 
     def get_queryset(self):
-        query = super(StudentArticlesView, self).get_queryset()
-        return query
+        return None
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(StudentArticlesView, self).get_context_data()
@@ -60,7 +58,7 @@ class AddNewArticle(View):
         }
         return render(request, "userPanel_module/student_view/add_new_article.html", context)
 
-# todo: show uploded file in this view
+
 class showArticle(View):
     def get(self, request, article_id):
         find_article = Article.objects.get(id=article_id)
@@ -79,29 +77,33 @@ class EditArticle(View):
             'description': find_article.description,
             'file': find_article.file,
         }
-        article_form = ArticleForm(initial=initial_dict)
+        edit_article_form = EditArticleForm(initial=initial_dict)
         context = {
-            'article_form': article_form,
-            'article_id': article_id
+            'edit_article_form': edit_article_form,
+            'article_id': article_id,
+            'article': find_article,
         }
         return render(request, "userPanel_module/student_view/edit_article.html", context)
     def post(self, request, article_id):
         find_article = Article.objects.get(id=article_id)
-        article_form = ArticleForm(request.POST, request.FILES)
-        if(article_form.is_valid()):
-            cd = article_form.cleaned_data
-            get_user = request.user
+        edit_article_form = EditArticleForm(request.POST, request.FILES)
+        if(edit_article_form.is_valid()):
+            cd = edit_article_form.cleaned_data
             title = cd["title"]
             description = cd["description"]
-            file = request.FILES["file"]
+            check_file = cd["file"]
+            # if file input is changed, then update object file field
+            if(check_file):
+                file = request.FILES["file"]
+                find_article.file = file
             find_article.title = title
             find_article.description = description
-            find_article.file = file
             find_article.save()
             return redirect(reverse("account:account"))
         context = {
-            'article_form': article_form,
-            'article_id': article_id
+            'edit_article_form': edit_article_form,
+            'article_id': article_id,
+            'article': find_article,
         }
         return render(request, "userPanel_module/student_view/edit_article.html", context)
 
@@ -114,15 +116,12 @@ class ProfessorView(TemplateView):
         context['profile'] = self.request.user.profile
         return context
 
-# todo : convert listView to View for better perfomance
-# todo: check articles query
 class ProfessorArticles_for_review_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/Articles_for_review.html'
 
     def get_queryset(self):
-        query = super(ProfessorArticles_for_review_View, self).get_queryset()
-        return query
+        return None
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProfessorArticles_for_review_View, self).get_context_data()
@@ -131,7 +130,7 @@ class ProfessorArticles_for_review_View(ListView):
         context['reviews'] = reviews
         return context
 
-# todo: show student article files
+
 class AddNewReview_View(View):
     def get(self, request, review_id):
         review_form = ReviewForm()
@@ -188,6 +187,10 @@ class EditReview_View(View):
 class ProfessorLast_reviews_View(ListView):
     model = Review
     template_name = 'userPanel_module/professor_view/last_reviews.html'
+
+    def get_queryset(self):
+        return None
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProfessorLast_reviews_View, self).get_context_data()
         professor = self.request.user.professor_set.first()
