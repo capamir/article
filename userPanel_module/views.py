@@ -3,7 +3,7 @@ from  django.views import View
 # Create your views here.
 from django.views.generic import TemplateView, ListView
 from articles.models import Article, Review
-from articles.forms import ArticleForm, ReviewForm
+from articles.forms import ArticleForm, ReviewForm, EditArticleForm
 from django.shortcuts import redirect, reverse
 
 # === STUDENT VIEW ===
@@ -77,29 +77,33 @@ class EditArticle(View):
             'description': find_article.description,
             'file': find_article.file,
         }
-        article_form = ArticleForm(initial=initial_dict)
+        edit_article_form = EditArticleForm(initial=initial_dict)
         context = {
-            'article_form': article_form,
-            'article_id': article_id
+            'edit_article_form': edit_article_form,
+            'article_id': article_id,
+            'article': find_article,
         }
         return render(request, "userPanel_module/student_view/edit_article.html", context)
     def post(self, request, article_id):
         find_article = Article.objects.get(id=article_id)
-        article_form = ArticleForm(request.POST, request.FILES)
-        if(article_form.is_valid()):
-            cd = article_form.cleaned_data
-            get_user = request.user
+        edit_article_form = EditArticleForm(request.POST, request.FILES)
+        if(edit_article_form.is_valid()):
+            cd = edit_article_form.cleaned_data
             title = cd["title"]
             description = cd["description"]
-            file = request.FILES["file"]
+            check_file = cd["file"]
+            # if file input is changed, then update object file field
+            if(check_file):
+                file = request.FILES["file"]
+                find_article.file = file
             find_article.title = title
             find_article.description = description
-            find_article.file = file
             find_article.save()
             return redirect(reverse("account:account"))
         context = {
-            'article_form': article_form,
-            'article_id': article_id
+            'edit_article_form': edit_article_form,
+            'article_id': article_id,
+            'article': find_article,
         }
         return render(request, "userPanel_module/student_view/edit_article.html", context)
 
