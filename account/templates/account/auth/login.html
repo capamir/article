@@ -25,13 +25,13 @@
 
       <div class="auth__actions">
         <input class="btn btn-primary btn-md" type="submit" value="Log In" />
-        <a href="">Forget Password?</a>
+        <a href="{% url 'account:reset_password' %}">Forget Password?</a>
       </div>
     </form>
 
     <div class="auth__alternative">
       <p>Don’t have an Account?</p>
-      <a href="">Sign Up</a>
+      <a href="{% url 'account:register' %}">Sign Up</a>
     </div>
   </div>
 </div>

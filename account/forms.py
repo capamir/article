@@ -62,7 +62,7 @@ class UserRegistrationForm(BaseUserCreationForm):
 		super(UserRegistrationForm, self).__init__(*args, **kwargs)
 
 		for name, field in self.fields.items():
-			field.widget.attrs.update({'class': 'input'})
+			field.widget.attrs.update({'class': 'input form-control'})
 
 	def clean_email(self):
 		email = self.cleaned_data['email']

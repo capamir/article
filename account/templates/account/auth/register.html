@@ -2,9 +2,9 @@
 
 <div class="auth">
   <div class="card">
-    <div class="auth__header text-center">
+    <div class="auth__header text-center" style="margin-top: 5rem">
       <a href="{% url 'articles:articles' %}">
-        <img src="{% static 'images/icon.svg' %}" alt="icon" />
+{#        <img src="{% static 'images/icon.svg' %}" alt="icon" />#}
       </a>
       <h3>Register an Account</h3>
       <p>Create a new developer account</p>
@@ -24,12 +24,12 @@
       {% endfor %}
 
       <div class="auth__actions">
-        <input class="btn btn--sub btn--lg" type="submit" value="Sign  Up" />
+        <input class="btn btn-primary btn-md" type="submit" value="Sign  Up" />
       </div>
     </form>
     <div class="auth__alternative">
       <p>Already have an Account?</p>
-      <a href="">Log In</a>
+      <a href="{% url 'account:login' %}">Log In</a>
     </div>
   </div>
 </div>
