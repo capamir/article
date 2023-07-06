@@ -19,7 +19,6 @@ class ArticleForm(forms.Form):
     )
     description = forms.CharField(
         label="description",
-        max_length=500,
         widget=CKEditorWidget(
             attrs={
                 "class": "form-control",
@@ -58,7 +57,6 @@ class EditArticleForm(forms.Form):
     )
     description = forms.CharField(
         label="description",
-        max_length=500,
         widget=CKEditorWidget(
             attrs={
                 "class": "form-control",
