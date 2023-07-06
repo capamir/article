@@ -17,7 +17,7 @@
                                     <h5 class="card-title">Article Owner : {{ review.article.owner.full_name }}</h5>
                                     <p class="card-text text-start"><span class="fw-bold">
                                         Article Description
-                                    </span>: {{ review.article.description  }}</p>
+                                    </span>: {{ review.article.description|safe  }}</p>
                                   </div>
                                     <div class="card-footer">
                                     <small class="text-muted">Article Created Date : {{ review.article.created  }}</small>

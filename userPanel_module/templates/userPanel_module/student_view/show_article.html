@@ -33,7 +33,7 @@
                             <div class="card">
                               <div class="card-body">
                                 <h5 class="card-title">Judge By : {{ review.owner.user.full_name }}</h5>
-                                <p class="card-text text-start">Comment : {{ review.body }}</p>
+                                <p class="card-text text-start">Comment : {{ review.body|safe}}</p>
                               </div>
                                 <div class="card-footer">
                                 <small class="text-muted">Last updated : {{ review.updated }}</small
