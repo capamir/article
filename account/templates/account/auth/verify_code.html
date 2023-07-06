@@ -4,7 +4,7 @@
   <div class="card">
     <div class="auth__header text-center">
       <a href="{% url 'articles:articles' %}">
-        <img src="{% static 'images/icon.svg' %}" alt="icon" />
+{#        <img src="{% static 'images/icon.svg' %}" alt="icon" />#}
       </a>
       <h3>Register an Account</h3>
       <p>Create a new developer account</p>
@@ -21,7 +21,7 @@
                 {% endif %} -->
 
         {% for error in field.errors %}
-        <p style="color: red">{{error}}</p>
+        <p style="color: red" class="alert alert-danger">{{error}}</p>
         {% endfor %}
       </div>
 

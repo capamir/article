@@ -81,7 +81,7 @@ class UserRegistrationForm(BaseUserCreationForm):
 
 
 class VerifyCodeForm(forms.Form):
-	code = forms.IntegerField(widget=forms.TextInput(attrs={"class": "input"}))
+	code = forms.IntegerField(widget=forms.TextInput(attrs={"class": "input form-control"}))
 
 
 class UserLoginForm(forms.Form):
@@ -96,9 +96,11 @@ class ProfileForm(forms.ModelForm):
 				  'social_github', 'social_linkedin', 'social_twitter',
 				  'social_website')
 	
-	# def __init__(self, *args, **kwargs):
-	# 	for name, field in self.fields.items():
-	# 		field.widget.attrs.update({'class': 'input'})
+	def __init__(self, *args, **kwargs):
+		super(ProfileForm, self).__init__(*args, **kwargs)
+
+		for name, field in self.fields.items():
+			field.widget.attrs.update({'class': 'input form-control'})
 
 
 class MessageForm(forms.ModelForm):
