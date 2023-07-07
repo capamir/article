@@ -20,8 +20,14 @@
                             >
                                 {% csrf_token %}
                                 <div class="mb-3">
-                                    <label>{{ review_form.body.label }}</label>
                                     {{ review_form.body }}
+                                </div>
+                                <div class="mb-3">
+                                    <label>{{ review_form.score.label }} : </label>
+                                    {{ review_form.score }}
+                                    {% for error in  review_form.score.errors  %}
+                                        <p class="text-danger">{{ error }}</p>
+                                    {% endfor %}
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success btn-md w-25">
