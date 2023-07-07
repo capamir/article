@@ -147,7 +147,9 @@ class AddNewReview_View(View):
         if(review_form.is_valid()):
             cd = review_form.cleaned_data
             body = cd['body']
+            score = cd['score']
             find_review_obj.body = body
+            find_review_obj.score = score
             find_review_obj.save()
             return redirect(reverse("account:account"))
         context = {
@@ -161,6 +163,7 @@ class EditReview_View(View):
         find_review_obj = Review.objects.get(id=review_id)
         initial_dict = {
             "body": find_review_obj.body,
+            'score': find_review_obj.score,
         }
         review_form = ReviewForm(initial=initial_dict)
         context = {
@@ -174,7 +177,9 @@ class EditReview_View(View):
         if(review_form.is_valid()):
             cd = review_form.cleaned_data
             body = cd['body']
+            score = cd['score']
             find_review_obj.body = body
+            find_review_obj.score = score
             find_review_obj.save()
             return redirect(reverse("account:account"))
         context = {
