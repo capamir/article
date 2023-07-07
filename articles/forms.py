@@ -1,5 +1,5 @@
 from django import forms
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator,MaxValueValidator,MinValueValidator
 from ckeditor.widgets import CKEditorWidget
 
 class ArticleForm(forms.Form):
@@ -83,6 +83,14 @@ class ReviewForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(ReviewForm, self).__init__(*args, **kwargs)
+
+    score = forms.IntegerField(
+        label='score',
+        validators=[
+            MaxValueValidator(100, message="score should be between 0 and 100 !"),
+            MinValueValidator(0, message="score should be between 0 and 100 !")
+        ]
+    )
 
     body = forms.CharField(
         label="body",
